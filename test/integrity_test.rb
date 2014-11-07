@@ -21,7 +21,6 @@ class IntegrityTest < TestCase
   test "images on disk have no duplicates" do
     hashes = Hash.new { |h,k| h[k] = [] }
     Emoji.all.each do |emoji|
-      unless File.symlink? emoji
       checksum = Digest::MD5.file(File.join(Emoji.images_path, 'emoji', emoji.image_filename)).to_s
       hashes[checksum] << emoji
     end
